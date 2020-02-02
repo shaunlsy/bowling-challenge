@@ -80,6 +80,8 @@ Bowling.prototype.calculateScore = function() {
     // if (this.strike()) { this.scores.push(this.strikeScore()) }
     if (this.frame === 0) {
         this.scores.push(this._sum(this.scoreBoard[this.frame]))
+    } else if (this.strike()) {
+        return this.scores.push(this.strikeScore());
     } else {
         this.scores.push(this._sum(this.scoreBoard[this.frame]) + (this.scores[this.frame - 1]));
     }
@@ -90,7 +92,15 @@ Bowling.prototype.strike = function(frame = this.frame) {
 }
 
 Bowling.prototype.strikeScore = function(frame = this.frame) {
-    this.scoreBoard[frame + 1][0] + this.scoreBoard[frame + 1][1] + 10
+    var value = 10
+    if (this.scoreBoard[frame + 1][0] === null) { return "X" }
+    value += this.scoreBoard[frame + 1][0] + this.scoreBoard[frame + 1][1]
+    if (this.scoreBoard[frame + 1][1] === null) {
+        if (this.scoreBoard[frame + 2][0] === null) { return "X" }
+        value += this.scoreBoard[frame + 2][0]
+    }
+    return value
+        // this.scoreBoard[frame + 1][0] + this.scoreBoard[frame + 1][1] + 10
 }
 
 Bowling.prototype.spare = function(frame = this.frame) {

@@ -67,9 +67,6 @@ $(document).ready(function() {
     function updateScore() {
         $("#score-display").text(bowling.getScore());
         var score = parseInt($("#score-display").text());
-        console.log(bowling.frame)
-        console.log("roll")
-        console.log(bowling.roll)
         $("#cheers-display").hide();
         if (score === 10) {
             $("#cheers-display").text("Strike!").show().delay(1000).fadeOut();
